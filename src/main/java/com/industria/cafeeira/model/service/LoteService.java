@@ -3,7 +3,9 @@ package com.industria.cafeeira.model.service;
 import com.industria.cafeeira.model.entities.Lote;
 import com.industria.cafeeira.model.repository.LoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class LoteService {
 
     public Lote findById(Long id){
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Lote não encontrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Lote não encontrado!"));
     }
 
     public Lote save (Lote lote){
@@ -30,7 +32,6 @@ public class LoteService {
         Lote lote = findById(id);
 
         //CRUD simples, service recebe a entity diretamente
-        lote.setCodigo(dados.getCodigo());
         lote.setFk_fornecedor(dados.getFk_fornecedor());
         lote.setFk_produto(dados.getFk_produto());
         lote.setTipo(dados.getTipo());
