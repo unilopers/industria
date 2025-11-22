@@ -15,4 +15,13 @@ public class Usuario {
     private String login;
     private String senha;
 
+    public Usuario(Funcionario funcionario, String login, String senha) {
+        this.funcionario = funcionario;
+        this.login = login;
+        this.senha = senha;
+    }
+
+    public Usuario(){}
+
+
 }
