@@ -23,10 +23,10 @@ public class Pedido {
     private String codigoPedido;
 
     @ManyToOne
-    @JoinColumn(name = "idCliente")
+    @JoinColumn(name = "idCliente", nullable = false)
     private Cliente cliente;
 
 //    @ManyToOne
-//    @JoinColumn(name = "idUsuario")
+//    @JoinColumn(name = "idUsuario", nullable = false)
 //    private Usuario usuario;
 }
