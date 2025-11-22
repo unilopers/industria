@@ -4,6 +4,8 @@ import com.industria.cafeeira.model.entities.Funcionario;
 import com.industria.cafeeira.model.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 
 @Service
 public class FuncionarioService {
@@ -20,5 +22,14 @@ public class FuncionarioService {
         return true;
     }
 
+    public boolean deletarFuncionario(Long id) throws Exception{
+
+        try {
+            funcionarioRepository.deleteById(id);
+            return true;
+        }catch (Exception e){
+            throw new Exception("Funcionário de id: " + id + " não encontrado");
+        }
+    }
 
 }
