@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
 
 
 @Entity
@@ -20,6 +21,7 @@ public class Cliente {
     @Column(name = "id")
     private Long id;
 
+    @NotNull(message = "O código é obrigatória")
     @Column(name = "codigo", unique = true, nullable = false)
     private String codigo;
 
@@ -35,6 +37,7 @@ public class Cliente {
     @Column(name = "logradouro")
     private String logradouro;
 
-    @Column(name = "tipoOperacao")
+    @NotNull(message = "O tipo de Operação é obrigatória")
+    @Column(name = "tipoOperacao", nullable = false)
     private String tipoOperacao;
 }
