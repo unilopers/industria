@@ -33,8 +33,8 @@ public class LoteController {
     }
 
     @PutMapping("/{id}")
-    public Lote update(@PathVariable Long id, @RequestBody Lote lote){
-        return service.update(id, lote);
+    public Lote update(@PathVariable Long id, @RequestBody Lote dados){
+        return service.update(id, dados);
     }
 
     @DeleteMapping("/{id}")
