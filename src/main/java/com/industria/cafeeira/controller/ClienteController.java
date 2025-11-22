@@ -47,4 +47,17 @@ public class ClienteController {
                             null));
         }
     }
+
+    @GetMapping("buscar/codigo/{codigo}")
+    public ResponseEntity<?> getCodigo(@PathVariable String codigo){
+        try{
+            Cliente cliente = clienteService.buscarPorCodigo(codigo);
+            return ResponseEntity.ok().body(cliente);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    DefaultResponse.construir(HttpStatus.NOT_FOUND.value(),
+                            e.getMessage(),
+                            null));
+        }
+    }
 }
