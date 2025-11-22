@@ -29,4 +29,12 @@ public class ClienteService {
             throw new RuntimeException("Cliente já cadastrado");
         }
     }
+
+    public void deletarCliente(String codigo){
+        Cliente cliente = clienteRepository.findByCodigo(codigo)
+                .orElseThrow(() -> new RuntimeException(
+                        "Cliente com código" + codigo + " não encontrado"
+                ));
+        clienteRepository.delete(cliente);
+    }
 }
