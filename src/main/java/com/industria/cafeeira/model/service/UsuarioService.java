@@ -19,5 +19,15 @@ public class UsuarioService {
         return true;
     }
 
+    public boolean deletarUsuario(Long id) throws Exception{
+        try {
+            usuarioRepository.deleteById(id);
+            return true;
+        } catch (Exception e){
+            throw new Exception("o usuário de id: " + id + " não foi encontrado");
+        }
+    }
+
+
 
 }
