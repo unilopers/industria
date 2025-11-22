@@ -1,4 +1,8 @@
 package com.industria.cafeeira.model.repository;
 
-public class FuncionarioRepository {
+import com.industria.cafeeira.model.entities.Funcionario;
+import org.springframework.data.repository.CrudRepository;
+
+public interface FuncionarioRepository extends CrudRepository<Funcionario, Long> {
+
 }
