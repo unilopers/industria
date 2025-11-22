@@ -60,4 +60,30 @@ public class ClienteController {
                             null));
         }
     }
+
+    @GetMapping("buscar/cpf/{cpf}")
+    public ResponseEntity<?> getCpf(@PathVariable String cpf){
+        try{
+            Cliente cliente = clienteService.buscarPorCpf(cpf);
+            return ResponseEntity.ok().body(cliente);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    DefaultResponse.construir(HttpStatus.NOT_FOUND.value(),
+                            e.getMessage(),
+                            null));
+        }
+    }
+
+    @GetMapping("buscar/cnpj/{cnpj}")
+    public ResponseEntity<?> getCnpj(@PathVariable String cnpj){
+        try{
+            Cliente cliente = clienteService.buscarPorCnpj(cnpj);
+            return ResponseEntity.ok().body(cliente);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    DefaultResponse.construir(HttpStatus.NOT_FOUND.value(),
+                            e.getMessage(),
+                            null));
+        }
+    }
 }
