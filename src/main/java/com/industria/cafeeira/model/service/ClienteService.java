@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClienteService {
 
@@ -54,5 +56,15 @@ public class ClienteService {
         return clienteRepository.findByCnpj(cnpj)
                 .orElseThrow(() ->
                         new RuntimeException("Usuário com Cpnj "+cnpj+" não encontrado"));
+    }
+
+    public Cliente buscarRazaoSocial(String razaoSocial){
+        return clienteRepository.findByRazaoSocial(razaoSocial)
+                .orElseThrow(() ->
+                        new RuntimeException("Usuário com razão social "+razaoSocial+" não encontrado"));
+    }
+
+    public List<Cliente> buscarPorOperacao(String tipoOperacao){
+        return clienteRepository.findByTipoOperacao(tipoOperacao);
     }
 }
