@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Table(name = "Funcionario")
 public class Funcionario {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -25,6 +26,21 @@ public class Funcionario {
     private String logradouro;
     private LocalDate data_demissao;
 
+    public Funcionario(String nome_completo, String cpf, String rg, String departamento, String cargo, int matricula, String sindicato, int centro_custo, String filial, LocalDate data_nascimento, LocalDate data_admissao, String logradouro, LocalDate data_demissao) {
+        this.nome_completo = nome_completo;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.departamento = departamento;
+        this.cargo = cargo;
+        this.matricula = matricula;
+        this.sindicato = sindicato;
+        this.centro_custo = centro_custo;
+        this.filial = filial;
+        this.data_nascimento = data_nascimento;
+        this.data_admissao = data_admissao;
+        this.logradouro = logradouro;
+        this.data_demissao = data_demissao;
+    }
 
 
 }
