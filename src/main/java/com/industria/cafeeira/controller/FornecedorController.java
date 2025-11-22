@@ -19,7 +19,7 @@ public class FornecedorController {
 
     @PostMapping
     public Fornecedor create (@RequestBody Fornecedor fornecedor){
-        return service.save(fornecedor);
+        return service.create(fornecedor);
     }
 
     @GetMapping

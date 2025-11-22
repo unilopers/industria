@@ -1,6 +1,7 @@
 package com.industria.cafeeira.model.service;
 
 import com.industria.cafeeira.model.entities.Fornecedor;
+import com.industria.cafeeira.model.entities.Lote;
 import com.industria.cafeeira.model.repository.FornecedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,14 @@ public class FornecedorService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fornecedor não encontrado!"));
     }
 
-    public Fornecedor save(Fornecedor fornecedor){
-        return repository.save(fornecedor);
+    public Fornecedor create(Fornecedor fornecedor){
+        Fornecedor salvo = repository.save(fornecedor);
+
+        String codigoGerado = "COD-" + String.format("%06d", salvo.getId());
+
+        salvo.setCodigo(codigoGerado);
+
+        return repository.save(salvo);
     }
 
     public Fornecedor update(Long id, Fornecedor dados){

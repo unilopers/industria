@@ -19,7 +19,7 @@ public class LoteController {
 
     @PostMapping
     public Lote create(@RequestBody Lote lote){
-        return service.save(lote);
+        return service.create(lote);
     }
 
     @GetMapping

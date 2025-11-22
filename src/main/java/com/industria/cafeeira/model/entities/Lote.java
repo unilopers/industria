@@ -13,7 +13,7 @@ public class Lote {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(unique = true, insertable = false, updatable = false)
+    @Column(unique = true, nullable = true)
     private String codigo;
 
     @Column(nullable = true)

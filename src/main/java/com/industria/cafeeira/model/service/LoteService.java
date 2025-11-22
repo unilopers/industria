@@ -24,8 +24,14 @@ public class LoteService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Lote não encontrado!"));
     }
 
-    public Lote save (Lote lote){
-        return repository.save(lote);
+    public Lote create (Lote lote){
+        Lote salvo = repository.save(lote);
+
+        String codigoGerado = "COD-" + String.format("%06d", salvo.getId());
+
+        salvo.setCodigo(codigoGerado);
+
+        return repository.save(salvo);
     }
 
     public Lote update (Long id, Lote dados){

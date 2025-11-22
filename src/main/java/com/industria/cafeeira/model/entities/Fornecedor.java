@@ -10,7 +10,7 @@ public class Fornecedor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, insertable = false, updatable = false)
+    @Column(unique = true, nullable = true)
     private String codigo;
 
     private String nome_fantasia;
