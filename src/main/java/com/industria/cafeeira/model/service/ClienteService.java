@@ -43,4 +43,16 @@ public class ClienteService {
                 .orElseThrow(() ->
                         new RuntimeException("Usuário com código "+codigo+" não encontrado"));
     }
+
+    public Cliente buscarPorCpf(String cpf){
+        return clienteRepository.findByCpf(cpf)
+                .orElseThrow(() ->
+                        new RuntimeException("Usuário com Cpf "+cpf+" não encontrado"));
+    }
+
+    public Cliente buscarPorCnpj(String cnpj){
+        return clienteRepository.findByCnpj(cnpj)
+                .orElseThrow(() ->
+                        new RuntimeException("Usuário com Cpnj "+cnpj+" não encontrado"));
+    }
 }
