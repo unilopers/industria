@@ -147,4 +147,12 @@ public class Funcionario {
     public void setData_demissao(LocalDate data_demissao) {
         this.data_demissao = data_demissao;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
