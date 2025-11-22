@@ -33,8 +33,14 @@ public class ClienteService {
     public void deletarCliente(String codigo){
         Cliente cliente = clienteRepository.findByCodigo(codigo)
                 .orElseThrow(() -> new RuntimeException(
-                        "Cliente com código" + codigo + " não encontrado"
+                        "Cliente com código " + codigo + " não encontrado"
                 ));
         clienteRepository.delete(cliente);
+    }
+
+    public Cliente buscarPorCodigo(String codigo){
+        return clienteRepository.findByCodigo(codigo)
+                .orElseThrow(() ->
+                        new RuntimeException("Usuário com código "+codigo+" não encontrado"));
     }
 }
