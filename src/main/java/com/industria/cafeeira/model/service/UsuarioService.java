@@ -13,7 +13,7 @@ public class UsuarioService {
 
     public boolean novoUsuario(Usuario usuario) throws Exception{
         if (usuario.getFuncionario() == null || usuario.getFuncionario().getNome_completo().isEmpty() || usuario.getFuncionario().getNome_completo() == null){
-            throw new IllegalArgumentException("O nome do Usuário precisa ser preenchido corretamente");
+            throw new IllegalArgumentException("O nome do Usuário precisa ser preenchido corretamente!");
         }
         usuarioRepository.save(usuario);
         return true;
@@ -24,10 +24,18 @@ public class UsuarioService {
             usuarioRepository.deleteById(id);
             return true;
         } catch (Exception e){
-            throw new Exception("o usuário de id: " + id + " não foi encontrado");
+            throw new Exception("o usuário de id: " + id + " não foi encontrado.");
         }
     }
 
+    public boolean atualizarUsuario(Usuario usuario) throws Exception{
+        try {
+            usuarioRepository.save(usuario);
+            return true;
+        } catch (Exception e){
+            throw new Exception("O usuário de id: " + usuario.getId() + " não foi encontrado.");
+        }
+    }
 
 
 }
