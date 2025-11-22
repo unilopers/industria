@@ -23,13 +23,20 @@ public class FuncionarioService {
     }
 
     public boolean deletarFuncionario(Long id) throws Exception{
-
         try {
             funcionarioRepository.deleteById(id);
             return true;
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Funcionário de id: " + id + " não encontrado");
         }
     }
 
+    public boolean atualizarFuncionario(Funcionario funcionario) throws Exception{
+        try {
+            funcionarioRepository.save(funcionario);
+            return true;
+        } catch (Exception e){
+            throw new Exception("Funcionario com o id: " + funcionario.getId() + " não encontrado" );
+        }
+    }
 }
