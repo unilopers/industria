@@ -1,6 +1,7 @@
 com\industria\cafeeira\model\repository\FuncionarioRepository.class
 com\industria\cafeeira\model\entities\Pedido.class
 com\industria\cafeeira\model\repository\ClienteRepository.class
+com\industria\cafeeira\util\DefaultResponse.class
 com\industria\cafeeira\controller\ClienteController.class
 com\industria\cafeeira\model\repository\PedidoRepository.class
 com\industria\cafeeira\CafeeiraApplication.class

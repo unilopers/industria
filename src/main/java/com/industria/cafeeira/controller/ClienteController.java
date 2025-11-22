@@ -30,7 +30,7 @@ public class ClienteController {
         }
     }
 
-    @DeleteMapping("/deletar")
+    @DeleteMapping("/deletar/{codigo}")
     public ResponseEntity<?> deletarCliente(@PathVariable String codigo){
         try{
             clienteService.deletarCliente(codigo);
