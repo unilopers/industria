@@ -155,5 +155,19 @@ public class ClienteController {
         }
     }
 
+    @PutMapping("/atualizar-razaoSocial/{cnpj}")
+    public ResponseEntity<?> atualizarRazaoSocial(
+            @PathVariable String cnpj,
+            @RequestBody ClienteDto clienteDto
+    ) {
+        try {
+            Cliente clienteAtualizado = clienteService.atualizarRazaoSocial(cnpj, clienteDto.getRazaoSocial());
+            return ResponseEntity.ok(clienteAtualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
 
 }
