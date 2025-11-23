@@ -17,16 +17,15 @@ public class ClienteService {
 
     public Cliente cadastrarCliente(Cliente cliente) {
 
-        // Normaliza somente CPF e CNPJ
         cliente.setCpf(normalizar(cliente.getCpf()));
         cliente.setCnpj(normalizar(cliente.getCnpj()));
 
-        // Não normaliza razão social
         String razaoSocial = cliente.getRazaoSocial();
 
         if (cliente.getCpf() == null && cliente.getCnpj() == null) {
             throw new RuntimeException("É necessário informar CPF ou CNPJ.");
         }
+
 
         if (cliente.getCnpj() != null && (razaoSocial == null || razaoSocial.isBlank())) {
             throw new RuntimeException("Razão Social é obrigatória quando CNPJ é informado.");
@@ -154,4 +153,39 @@ public class ClienteService {
         }
     }
 
+    public boolean validarCPF(String cpf) {
+        if (cpf == null) return false;
+
+        cpf = cpf.replaceAll("\\D", "");
+
+        if (cpf.length() != 11) return false;
+
+        // Rejeita CPFs com todos os dígitos iguais
+        if (cpf.matches("(\\d)\\1{10}")) return false;
+
+        try {
+            int soma = 0;
+            for (int i = 0; i < 9; i++) {
+                soma += (cpf.charAt(i) - '0') * (10 - i);
+            }
+
+            int primeiroDigito = 11 - (soma % 11);
+            if (primeiroDigito >= 10) primeiroDigito = 0;
+
+            if (primeiroDigito != (cpf.charAt(9) - '0')) return false;
+
+            soma = 0;
+            for (int i = 0; i < 10; i++) {
+                soma += (cpf.charAt(i) - '0') * (11 - i);
+            }
+
+            int segundoDigito = 11 - (soma % 11);
+            if (segundoDigito >= 10) segundoDigito = 0;
+
+            return segundoDigito == (cpf.charAt(10) - '0');
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
