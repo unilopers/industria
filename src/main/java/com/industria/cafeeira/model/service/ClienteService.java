@@ -111,4 +111,23 @@ public class ClienteService {
             throw new RuntimeException("Erro ao atualizar tipo de operação do cliente");
         }
     }
+
+    public Cliente atualizarCodigoCliente(Long id, String codigoNovo) {
+
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        if (clienteRepository.existsByCodigo(codigoNovo)) {
+            throw new RuntimeException("Já existe um cliente com esse código");
+        }
+
+        cliente.setCodigo(codigoNovo);
+
+        try {
+            return clienteRepository.save(cliente);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Erro ao atualizar o código do cliente");
+        }
+    }
+
 }
