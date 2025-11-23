@@ -147,5 +147,4 @@ public class ClienteService {
             throw new RuntimeException("Erro ao atualizar a Razão Social do cliente");
         }
     }
-
 }

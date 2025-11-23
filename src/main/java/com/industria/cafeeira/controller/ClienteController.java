@@ -1,5 +1,8 @@
 package com.industria.cafeeira.controller;
 
+import com.industria.cafeeira.model.DTO.ClienteDto;
+import com.industria.cafeeira.model.DTO.PedidoDto;
+import com.industria.cafeeira.model.entities.Pedido;
 import com.industria.cafeeira.util.DefaultResponse;
 import com.industria.cafeeira.model.entities.Cliente;
 import com.industria.cafeeira.model.service.ClienteService;
@@ -138,4 +141,19 @@ public class ClienteController {
         // retorna {"estabelecimento": [ ... ]}
         return Map.of("tipoOperacao", listaFormatada);
     }
+
+    @PutMapping("/atualizar-operacao/{id}")
+    public ResponseEntity<?> atualizarTipoOperacao(
+            @PathVariable Long id,
+            @RequestBody ClienteDto clienteDto
+    ) {
+        try {
+            Cliente clienteAtualizado = clienteService.atualizarTipoOperacao(id, clienteDto.getTipoOperacao());
+            return ResponseEntity.ok(clienteAtualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
 }
