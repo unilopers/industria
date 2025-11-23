@@ -24,11 +24,11 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<Cliente>> getClientes() {
-//        List<Cliente> clientes = clienteService.consultarClientes();
-//        return ResponseEntity.ok(clientes);
-//    }
+    @GetMapping
+    public ResponseEntity<List<Cliente>> getClientes() {
+        List<Cliente> clientes = clienteService.consultarClientes();
+        return ResponseEntity.ok(clientes);
+    }
 
     @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) {
