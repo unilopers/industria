@@ -57,6 +57,12 @@ public class ClienteService {
         clienteRepository.delete(cliente);
     }
 
+        public List<Cliente> consultarClientes() {
+        Iterable<Cliente> clientes = clienteRepository.findAll();
+
+        return (List<Cliente>) clientes;
+    }
+
     public Cliente buscarPorCodigo(String codigo){
         return clienteRepository.findByCodigo(codigo)
                 .orElseThrow(() ->
@@ -91,10 +97,4 @@ public class ClienteService {
         }
         return valor.replaceAll("\\D", "");
     }
-
-//    public List<Cliente> getCliente() {
-//        Iterable<Cliente> usuarios = clienteRepository.findAll();
-//
-//        return (List<Cliente>) usuarios;
-//    }
 }
