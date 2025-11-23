@@ -221,7 +221,7 @@ public class ClienteService {
         }
     }
 
-    public String normalizar(String valor) {
+    public String normalizarCpfECnpj(String valor) {
         if (valor == null || valor.isBlank()) {
             return null;
         }
