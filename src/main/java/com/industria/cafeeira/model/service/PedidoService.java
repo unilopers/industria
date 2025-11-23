@@ -60,5 +60,9 @@ public class PedidoService {
         return pedidoRepository.findByClienteId(idCliente);
     }
 
+    public List<Pedido> consultarPedidos() {
+        Iterable<Pedido> pedidos = pedidoRepository.findAll();
 
+        return (List<Pedido>) pedidos;
+    }
 }
