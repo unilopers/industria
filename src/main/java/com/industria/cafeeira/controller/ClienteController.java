@@ -105,18 +105,18 @@ public class ClienteController {
         }
     }
 
-//    @GetMapping("buscar/razaoSocial/{razaoSocial}")
-//    public ResponseEntity<?> getRazaoSocial(@PathVariable String razaoSocial){
-//        try{
-//            Cliente cliente = clienteService.buscarRazaoSocial(razaoSocial);
-//            return ResponseEntity.ok().body(cliente);
-//        }catch (RuntimeException e){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-//                    DefaultResponse.construir(HttpStatus.NOT_FOUND.value(),
-//                            e.getMessage(),
-//                            null));
-//        }
-//    }
+    @GetMapping("buscar/razaoSocial/{razaoSocial}")
+    public ResponseEntity<?> getRazaoSocial(@PathVariable String razaoSocial){
+        try{
+            Cliente cliente = clienteService.buscarRazaoSocial(razaoSocial);
+            return ResponseEntity.ok().body(cliente);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    DefaultResponse.construir(HttpStatus.NOT_FOUND.value(),
+                            e.getMessage(),
+                            null));
+        }
+    }
 
 //    @GetMapping("/buscar/tipoOperacao/{tipoOperacao}")
 //    public Map<String, List<Map<String, String>>> getTipoOperacao(@PathVariable String tipoOperacao) {
