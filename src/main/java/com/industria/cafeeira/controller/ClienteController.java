@@ -9,6 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.ref.Cleaner;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
@@ -20,11 +24,25 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<Cliente>> getClientes() {
+//        List<Cliente> clientes = clienteService.consultarClientes();
+//        return ResponseEntity.ok(clientes);
+//    }
+
     @PostMapping("/cadastrar")
-    public ResponseEntity<?> setCadastrarCliente(@Valid @RequestBody Cliente cliente){
+    public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) {
         try{
-            Cliente clientes = clienteService.cadastrarCliente(cliente);
-            return ResponseEntity.status(HttpStatus.CREATED).body(clientes);
+            String cpfNormalizado = clienteService.normalizar(cliente.getCpf());
+            String cnpjNormalizado = clienteService.normalizar(cliente.getCnpj());
+            String razaoSocialNormalizado = clienteService.normalizar(cliente.getRazaoSocial());
+
+            cliente.setCpf(cpfNormalizado);
+            cliente.setCnpj(cnpjNormalizado);
+            cliente.setRazaoSocial(razaoSocialNormalizado);
+
+            Cliente salvo = clienteService.cadastrarCliente(cliente);
+            return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
         }catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -86,4 +104,35 @@ public class ClienteController {
                             null));
         }
     }
+
+//    @GetMapping("buscar/razaoSocial/{razaoSocial}")
+//    public ResponseEntity<?> getRazaoSocial(@PathVariable String razaoSocial){
+//        try{
+//            Cliente cliente = clienteService.buscarRazaoSocial(razaoSocial);
+//            return ResponseEntity.ok().body(cliente);
+//        }catch (RuntimeException e){
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+//                    DefaultResponse.construir(HttpStatus.NOT_FOUND.value(),
+//                            e.getMessage(),
+//                            null));
+//        }
+//    }
+
+//    @GetMapping("/buscar/tipoOperacao/{tipoOperacao}")
+//    public Map<String, List<Map<String, String>>> getTipoOperacao(@PathVariable String tipoOperacao) {
+//
+//        List<Cliente> clientes = clienteService.buscarPorOperacao(tipoOperacao);
+//
+//        List<Map<String, String>> listaFormatada = clientes.stream()
+//                .map(usuario -> Map.of(
+//                        "codigo", String.valueOf(usuario.getCodigo()),
+//                        "nome", usuario.getNome(),
+//                        "regional", usuario.getRegional(),
+//                        "logradouro", usuario.getLogradouro(),
+//                        "tipoOperacao", usuario.getTipoOperacao()
+//                )).toList();
+//
+//        // retorna {"estabelecimento": [ ... ]}
+//        return Map.of("regional", listaFormatada);
+//    }
 }
