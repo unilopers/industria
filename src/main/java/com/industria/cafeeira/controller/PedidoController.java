@@ -4,6 +4,7 @@ import com.industria.cafeeira.model.DTO.PedidoDto;
 import com.industria.cafeeira.model.entities.Cliente;
 import com.industria.cafeeira.model.entities.Pedido;
 import com.industria.cafeeira.model.service.PedidoService;
+import com.industria.cafeeira.util.DefaultResponse;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
@@ -51,5 +52,24 @@ public class PedidoController {
                 ))
                 .toList();
     }
+
+    @DeleteMapping("/deletar/{codigoPedido}")
+    public ResponseEntity<?> deletarPedido(@PathVariable String codigoPedido){
+        try {
+            pedidoService.deletarPedido(codigoPedido);
+            return ResponseEntity.ok(
+                    DefaultResponse.construir(
+                            HttpStatus.OK.value(),
+                            "Pedido deletado com sucesso",
+                            null));
+        } catch(RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    DefaultResponse.construir(
+                            HttpStatus.NOT_FOUND.value(),
+                            e.getMessage(),
+                            null));
+        }
+    }
+
 
 }
