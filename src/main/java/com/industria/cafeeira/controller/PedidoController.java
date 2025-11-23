@@ -32,4 +32,11 @@ public class PedidoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @GetMapping
+    public ResponseEntity<List<Pedido>> getPedidos() {
+        List<Pedido> pedidos = pedidoService.consultarPedidos();
+        return ResponseEntity.ok(pedidos);
+    }
+
 }
