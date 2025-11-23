@@ -1,12 +1,12 @@
 package com.industria.cafeeira.model.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 
 public record LoteRequestDTO(
         Long fkFornecedor,
         Long fkProduto,
         String tipo,
         BigDecimal quantidade,
-        LocalDate dataVencimento,
+        Date dataVencimento,
         String descricao) {}
