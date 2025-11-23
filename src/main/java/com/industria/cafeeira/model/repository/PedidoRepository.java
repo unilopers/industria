@@ -11,6 +11,9 @@ import java.util.Optional;
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     Optional<Pedido> findByCodigoPedido(String codigoPedido);
+    boolean existsByCodigoPedido(String codigoPedido);
+
     List<Pedido> findByClienteId(Long idCliente);
+//    List<Pedido> findByUsuarioId(Long idUsuario);
 
 }
