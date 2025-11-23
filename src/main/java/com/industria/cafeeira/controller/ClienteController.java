@@ -36,21 +36,14 @@ public class ClienteController {
 
     @PostMapping("/cadastrar")
     public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) {
-        try{
-            String cpfNormalizado = clienteService.normalizar(cliente.getCpf());
-            String cnpjNormalizado = clienteService.normalizar(cliente.getCnpj());
-            String razaoSocialNormalizado = clienteService.normalizar(cliente.getRazaoSocial());
-
-            cliente.setCpf(cpfNormalizado);
-            cliente.setCnpj(cnpjNormalizado);
-            cliente.setRazaoSocial(razaoSocialNormalizado);
-
+        try {
             Cliente salvo = clienteService.cadastrarCliente(cliente);
             return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
 
     @DeleteMapping("/deletar/{codigo}")
     public ResponseEntity<?> deletarCliente(@PathVariable String codigo){
@@ -180,6 +173,4 @@ public class ClienteController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-
 }
