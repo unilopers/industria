@@ -168,6 +168,18 @@ public class ClienteController {
         }
     }
 
+    @PutMapping("/atualizar-codigo/{id}")
+    public ResponseEntity<?> atualizarCodigoCliente(
+            @PathVariable Long id,
+            @RequestBody ClienteDto clienteDto
+    ) {
+        try {
+            Cliente clienteAtualizado = clienteService.atualizarCodigoCliente(id, clienteDto.getCodigo());
+            return ResponseEntity.ok(clienteAtualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
 
 }
