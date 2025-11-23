@@ -17,10 +17,10 @@ public class Lote {
     private String codigo;
 
     @Column(nullable = true)
-    private long fk_fornecedor;
+    private Long fk_fornecedor;
 
     @Column(nullable = true)
-    private long fk_produto;
+    private Long fk_produto;
 
     private String tipo;
     private BigDecimal quantidade;
@@ -33,8 +33,8 @@ public class Lote {
 
     public Lote(Long id,
                 String codigo,
-                long fk_fornecedor,
-                long fk_produto,
+                Long fk_fornecedor,
+                Long fk_produto,
                 String tipo,
                 BigDecimal quantidade,
                 Date data_vencimento,
@@ -66,19 +66,19 @@ public class Lote {
         this.codigo = codigo;
     }
 
-    public long getFk_fornecedor() {
+    public Long getFk_fornecedor() {
         return fk_fornecedor;
     }
 
-    public void setFk_fornecedor(long fk_fornecedor) {
+    public void setFk_fornecedor(Long fk_fornecedor) {
         this.fk_fornecedor = fk_fornecedor;
     }
 
-    public long getFk_produto() {
+    public Long getFk_produto() {
         return fk_produto;
     }
 
-    public void setFk_produto(long fk_produto) {
+    public void setFk_produto(Long fk_produto) {
         this.fk_produto = fk_produto;
     }
 

@@ -47,5 +47,4 @@ public class FornecedorController {
         service.delete(id);
         return ResponseEntity.noContent().build(); //ocorre 204
     }
-
 }

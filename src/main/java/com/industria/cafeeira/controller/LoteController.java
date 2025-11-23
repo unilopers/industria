@@ -1,8 +1,12 @@
 package com.industria.cafeeira.controller;
 
+import com.industria.cafeeira.model.dto.LoteRequestDTO;
 import com.industria.cafeeira.model.entities.Lote;
 import com.industria.cafeeira.model.repository.LoteRepository;
 import com.industria.cafeeira.model.service.LoteService;
+import com.industria.cafeeira.view.LoteResponseDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,27 +22,29 @@ public class LoteController {
     }
 
     @PostMapping
-    public Lote create(@RequestBody Lote lote){
-        return service.create(lote);
+    public ResponseEntity<LoteResponseDTO> create(@RequestBody LoteRequestDTO lote){
+        var resp = service.create(lote);
+        return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
 
     @GetMapping
-    public List<Lote> findAll(){
-        return service.findAll();
+    public ResponseEntity<List<LoteResponseDTO>> findAll(){
+        return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")
-    public Lote findById(@PathVariable Long id){
-        return service.findById(id);
+    public ResponseEntity<LoteResponseDTO> findById(@PathVariable Long id){
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @PutMapping("/{id}")
-    public Lote update(@PathVariable Long id, @RequestBody Lote dados){
-        return service.update(id, dados);
+    public ResponseEntity<LoteResponseDTO> update(@PathVariable Long id, @RequestBody LoteRequestDTO dados){
+        return ResponseEntity.ok(service.update(id, dados));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
+        return ResponseEntity.noContent().build();// ocorre 204
     }
 }
