@@ -39,4 +39,17 @@ public class PedidoController {
         return ResponseEntity.ok(pedidos);
     }
 
+    @GetMapping("/buscar/idCliente/{idCliente}")
+    public List<PedidoDto> consultarPorIdCliente(@PathVariable Long idCliente) {
+
+        List<Pedido> pedidos = pedidoService.buscarClientePorCodigo(idCliente);
+
+        return pedidos.stream()
+                .map(pedido -> new PedidoDto(
+                        pedido.getCodigoPedido(),
+                        pedido.getCliente().getId()
+                ))
+                .toList();
+    }
+
 }
