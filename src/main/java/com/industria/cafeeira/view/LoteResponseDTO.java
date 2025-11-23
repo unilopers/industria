@@ -1,4 +1,4 @@
-package com.industria.cafeeira.model.dto;
+package com.industria.cafeeira.view;
 
 import java.math.BigDecimal;
 

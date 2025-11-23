@@ -1,4 +1,4 @@
-package com.industria.cafeeira.model.dto;
+package com.industria.cafeeira.view;
 
 public record FornecedorResponseDTO(
         Long id,
