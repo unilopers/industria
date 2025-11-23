@@ -188,4 +188,43 @@ public class ClienteService {
             return false;
         }
     }
+
+    public boolean validarCNPJ(String cnpj) {
+        if (cnpj == null) return false;
+
+        cnpj = cnpj.replaceAll("\\D", "");
+
+        if (cnpj.length() != 14) return false;
+
+        // Rejeita CNPJs com todos os dígitos iguais
+        if (cnpj.matches("(\\d)\\1{13}")) return false;
+
+        try {
+            int[] pesos1 = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+            int[] pesos2 = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+
+            int soma = 0;
+            for (int i = 0; i < 12; i++) {
+                soma += (cnpj.charAt(i) - '0') * pesos1[i];
+            }
+
+            int primeiroDigito = 11 - (soma % 11);
+            if (primeiroDigito >= 10) primeiroDigito = 0;
+
+            if (primeiroDigito != (cnpj.charAt(12) - '0')) return false;
+
+            soma = 0;
+            for (int i = 0; i < 13; i++) {
+                soma += (cnpj.charAt(i) - '0') * pesos2[i];
+            }
+
+            int segundoDigito = 11 - (soma % 11);
+            if (segundoDigito >= 10) segundoDigito = 0;
+
+            return segundoDigito == (cnpj.charAt(13) - '0');
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
