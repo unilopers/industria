@@ -130,4 +130,22 @@ public class ClienteService {
         }
     }
 
+    public Cliente atualizarRazaoSocial(String cnpj, String razaoSocialNovo) {
+
+        Cliente cliente = clienteRepository.findByCnpj(cnpj)
+                .orElseThrow(() -> new RuntimeException("Cnpj não encontrada"));
+
+        if (clienteRepository.existsByRazaoSocial(razaoSocialNovo)) {
+            throw new RuntimeException("Já existe um cliente com essa razão social");
+        }
+
+        cliente.setRazaoSocial(razaoSocialNovo);
+
+        try {
+            return clienteRepository.save(cliente);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Erro ao atualizar a Razão Social do cliente");
+        }
+    }
+
 }
