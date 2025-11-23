@@ -84,6 +84,24 @@ public class PedidoService {
         }
     }
 
+    public Pedido atualizarClienteDoPedido(Long idPedido, PedidoDto pedidoDto) {
 
+        Pedido pedido = pedidoRepository.findById(idPedido)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
 
+        Cliente cliente = clienteRepository.findById(pedidoDto.getIdCliente())
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        if (pedido.getCliente().getId().equals(cliente.getId())) {
+            throw new RuntimeException("Esse pedido já está vinculado a esse cliente");
+        }
+
+        pedido.setCliente(cliente);
+
+        try {
+            return pedidoRepository.save(pedido);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Erro ao atualizar o cliente do pedido");
+        }
+    }
 }
