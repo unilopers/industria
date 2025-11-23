@@ -97,5 +97,16 @@ public class PedidoController {
         }
     }
 
-
+    @PutMapping("/atualizar-cliente/{id}")
+    public ResponseEntity<?> atualizarClienteDoPedido(
+            @PathVariable Long id,
+            @RequestBody PedidoDto dto
+    ) {
+        try {
+            Pedido pedidoAtualizado = pedidoService.atualizarClienteDoPedido(id, dto);
+            return ResponseEntity.ok(pedidoAtualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
