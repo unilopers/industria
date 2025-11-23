@@ -67,4 +67,11 @@ public class ClienteService {
     public List<Cliente> buscarPorOperacao(String tipoOperacao){
         return clienteRepository.findByTipoOperacao(tipoOperacao);
     }
+
+    private String normalizar(String valor) {
+        if (valor == null || valor.isBlank()) {
+            return null;
+        }
+        return valor.replaceAll("\\D", "");
+    }
 }
