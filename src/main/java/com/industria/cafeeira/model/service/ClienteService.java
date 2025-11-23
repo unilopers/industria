@@ -96,13 +96,6 @@ public class ClienteService {
         return clienteRepository.findByTipoOperacao(tipoOperacao);
     }
 
-    public String normalizar(String valor) {
-        if (valor == null || valor.isBlank()) {
-            return null;
-        }
-        return valor.replaceAll("\\D", "");
-    }
-
     public Cliente atualizarTipoOperacao(Long id, String tipoOperacaoNovo) {
 
         Cliente cliente = clienteRepository.findById(id)
@@ -226,5 +219,19 @@ public class ClienteService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public String normalizar(String valor) {
+        if (valor == null || valor.isBlank()) {
+            return null;
+        }
+        return valor.replaceAll("\\D", "");
+    }
+
+    public String normalizarTexto(String valor) {
+        if (valor == null || valor.isBlank()) {
+            return null;
+        }
+        return valor.trim();
     }
 }
