@@ -1,6 +1,7 @@
 package com.industria.cafeeira.model.service;
 
 import com.industria.cafeeira.model.entities.Cliente;
+import com.industria.cafeeira.model.entities.Pedido;
 import com.industria.cafeeira.model.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -97,4 +98,17 @@ public class ClienteService {
         return valor.replaceAll("\\D", "");
     }
 
+    public Cliente atualizarTipoOperacao(Long id, String tipoOperacaoNovo) {
+
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        cliente.setTipoOperacao(tipoOperacaoNovo);
+
+        try {
+            return clienteRepository.save(cliente);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Erro ao atualizar tipo de operação do cliente");
+        }
+    }
 }
