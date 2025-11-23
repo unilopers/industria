@@ -1,6 +1,7 @@
 package com.industria.cafeeira.model.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,9 +20,11 @@ public class Pedido {
     @Column(name = "id")
     private Long id;
 
+    @NotNull(message = "O código do pedido é obrigatório")
     @Column(name = "codigoPedido", unique = true, nullable = false)
     private String codigoPedido;
 
+    @NotNull(message = "Cliente é obrigatório")
     @ManyToOne
     @JoinColumn(name = "idCliente", nullable = false)
     private Cliente cliente;
