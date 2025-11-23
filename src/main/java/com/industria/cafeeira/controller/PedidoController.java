@@ -71,5 +71,18 @@ public class PedidoController {
         }
     }
 
+    @GetMapping("/buscar/codigoPedido/{codigoPedido}")
+    public ResponseEntity<?> getCodigoPedido(@PathVariable String codigoPedido){
+        try{
+            Pedido pedido = pedidoService.buscarPedidoPorCodigo(codigoPedido);
+            return ResponseEntity.ok().body(pedido);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    DefaultResponse.construir(HttpStatus.NOT_FOUND.value(),
+                            e.getMessage(),
+                            null));
+        }
+    }
+
 
 }
