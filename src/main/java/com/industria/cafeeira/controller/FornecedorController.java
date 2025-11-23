@@ -1,8 +1,12 @@
 package com.industria.cafeeira.controller;
 
 
+import com.industria.cafeeira.model.dto.FornecedorRequestDTO;
 import com.industria.cafeeira.model.entities.Fornecedor;
 import com.industria.cafeeira.model.service.FornecedorService;
+import com.industria.cafeeira.view.FornecedorResponseDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,28 +22,30 @@ public class FornecedorController {
     }
 
     @PostMapping
-    public Fornecedor create (@RequestBody Fornecedor fornecedor){
-        return service.create(fornecedor);
+    public ResponseEntity<FornecedorResponseDTO> create (@RequestBody FornecedorRequestDTO fornecedor){
+        var resp = service.create(fornecedor);
+        return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
 
     @GetMapping
-    public List<Fornecedor> findAll(){
-        return service.findAll();
+    public ResponseEntity<List<FornecedorResponseDTO>> findAll(){
+        return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")
-    public Fornecedor getById(@PathVariable Long id){
-        return service.findById(id);
+    public ResponseEntity<FornecedorResponseDTO> getById(@PathVariable Long id){
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @PutMapping("/{id}")
-    public Fornecedor update(@PathVariable Long id, @RequestBody Fornecedor dados ){
-        return service.update(id, dados);
+    public ResponseEntity<FornecedorResponseDTO> update(@PathVariable Long id, @RequestBody FornecedorRequestDTO dados ){
+        return ResponseEntity.ok(service.update(id, dados));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
+        return ResponseEntity.noContent().build(); //ocorre 204
     }
 
 }

@@ -2,7 +2,9 @@ package com.industria.cafeeira.view;
 
 import com.industria.cafeeira.model.dto.FornecedorRequestDTO;
 import com.industria.cafeeira.model.entities.Fornecedor;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FornecedorMapper {
     public Fornecedor toEntity(FornecedorRequestDTO req){
         Fornecedor f = new Fornecedor();
