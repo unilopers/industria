@@ -32,4 +32,13 @@ public class PedidoService {
             throw new RuntimeException("Pedido já cadastrado.");
         }
     }
+
+    public void deletarPedido(String codigoPedido){
+        Pedido pedido = pedidoRepository.findByCodigoPedido(codigoPedido)
+                .orElseThrow(() -> new RuntimeException(
+                        "Pedido com código " + codigoPedido + " não encontrado"
+                ));
+
+        pedidoRepository.delete(pedido);
+    }
 }
