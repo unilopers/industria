@@ -65,4 +65,25 @@ public class PedidoService {
 
         return (List<Pedido>) pedidos;
     }
+
+    public Pedido atualizarCodigoPedido(Long id, String novoCodigo) {
+
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+
+        if (pedidoRepository.existsByCodigoPedido(novoCodigo)) {
+            throw new RuntimeException("Já existe um pedido com esse código");
+        }
+
+        pedido.setCodigoPedido(novoCodigo);
+
+        try {
+            return pedidoRepository.save(pedido);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Erro ao atualizar código do pedido");
+        }
+    }
+
+
+
 }
