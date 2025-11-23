@@ -16,29 +16,35 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     public Cliente cadastrarCliente(Cliente cliente) {
-        // normaliza os valores
+
+        // Normaliza somente CPF e CNPJ
         cliente.setCpf(normalizar(cliente.getCpf()));
         cliente.setCnpj(normalizar(cliente.getCnpj()));
-        cliente.setRazaoSocial(normalizar(cliente.getRazaoSocial()));
+
+        // Não normaliza razão social
+        String razaoSocial = cliente.getRazaoSocial();
 
         if (cliente.getCpf() == null && cliente.getCnpj() == null) {
             throw new RuntimeException("É necessário informar CPF ou CNPJ.");
         }
 
-        if (cliente.getCnpj() != null && (cliente.getRazaoSocial() == null || cliente.getRazaoSocial().isBlank())) {
+        if (cliente.getCnpj() != null && (razaoSocial == null || razaoSocial.isBlank())) {
             throw new RuntimeException("Razão Social é obrigatória quando CNPJ é informado.");
         }
 
         if(clienteRepository.existsByCodigo(cliente.getCodigo())){
             throw new RuntimeException("Já existe um Cliente com esse código");
         }
+
         if(cliente.getCpf() != null && clienteRepository.existsByCpf(cliente.getCpf())) {
             throw new RuntimeException("Já existe um Cliente com esse CPF");
         }
+
         if(cliente.getCnpj() != null && clienteRepository.existsByCnpj(cliente.getCnpj())) {
             throw new RuntimeException("Já existe um Cliente com esse CNPJ");
         }
-        if(cliente.getRazaoSocial() != null && clienteRepository.existsByRazaoSocial(cliente.getRazaoSocial())) {
+
+        if(cliente.getCnpj() != null && clienteRepository.existsByRazaoSocial(razaoSocial)) {
             throw new RuntimeException("Já existe um Cliente com essa Razão Social");
         }
 
@@ -147,4 +153,5 @@ public class ClienteService {
             throw new RuntimeException("Erro ao atualizar a Razão Social do cliente");
         }
     }
+
 }
