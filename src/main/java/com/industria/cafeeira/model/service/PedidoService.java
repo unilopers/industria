@@ -41,4 +41,11 @@ public class PedidoService {
 
         pedidoRepository.delete(pedido);
     }
+
+    public Pedido buscarPedidoPorCodigo(String codigoPedido){
+        return pedidoRepository.findByCodigoPedido(codigoPedido)
+                .orElseThrow(() ->
+                        new RuntimeException("Pedido com código " + codigoPedido + " não encontrado")
+                );
+    }
 }

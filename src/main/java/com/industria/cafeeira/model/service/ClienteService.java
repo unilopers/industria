@@ -48,7 +48,6 @@ public class ClienteService {
         }
     }
 
-
     public void deletarCliente(String codigo){
         Cliente cliente = clienteRepository.findByCodigo(codigo)
                 .orElseThrow(() -> new RuntimeException(
