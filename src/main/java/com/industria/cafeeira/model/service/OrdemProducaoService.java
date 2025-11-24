@@ -4,11 +4,14 @@ import com.industria.cafeeira.model.entities.Etiqueta;
 import com.industria.cafeeira.model.entities.OrdemProducao;
 import com.industria.cafeeira.model.repository.EtiquetaRepository;
 import com.industria.cafeeira.model.repository.OrdemProducaoRepository;
+import com.industria.cafeeira.util.BeanUtilsHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class OrdemProducaoService {
 
     @Autowired
@@ -29,8 +32,9 @@ public class OrdemProducaoService {
     public OrdemProducao update(Long id, OrdemProducao ordem) throws Exception {
 
         OrdemProducao existing = ordemProducaoRepository.findById(id).orElseThrow(() -> new Exception("OrdemProducao com id " + id + " não encontrado"));
+        BeanUtils.copyProperties(ordem, existing, BeanUtilsHelper.getNullPropertyNames(ordem));
 
-        return ordemProducaoRepository.save(ordem);
+        return ordemProducaoRepository.save(existing);
 
     }
 
