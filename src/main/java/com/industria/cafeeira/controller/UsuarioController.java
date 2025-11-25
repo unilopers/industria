@@ -1,50 +1,50 @@
 package com.industria.cafeeira.controller;
 
-import com.industria.cafeeira.model.entities.Funcionario;
-import org.springframework.web.bind.annotation.*;
-import com.industria.cafeeira.model.service.FuncionarioService;
+import com.industria.cafeeira.model.entities.Usuario;
+import com.industria.cafeeira.model.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/funcionario")
-public class FuncionarioController {
+@RequestMapping("/usuario")
+public class UsuarioController {
 
     @Autowired
-    private FuncionarioService funcionarioService;
+    private UsuarioService usuarioService;
 
     @GetMapping
     public ResponseEntity<List<?>> list(){
-        return ResponseEntity.ok(funcionarioService.findAll());
+        return ResponseEntity.ok(usuarioService.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> read(Long id){
         try {
-            return ResponseEntity.ok(funcionarioService.findById(id));
+            return ResponseEntity.ok(usuarioService.findById(id));
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    @PutMapping("/{matricula}")
-    public ResponseEntity<?> atualizarFuncionario(Funcionario funcionario) {
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarUsuario(Usuario usuario) {
         try {
-            return ResponseEntity.ok(funcionarioService.atualizarFuncionario(funcionario));
+            return ResponseEntity.ok(usuarioService.atualizarUsuario(usuario));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletarFuncionario(@PathVariable Long id)  {
+    public ResponseEntity<?> deletarUsuario(@PathVariable Long id)  {
 
         try {
-            funcionarioService.deletarFuncionario(id);
+            usuarioService.deletarUsuario(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -52,16 +52,15 @@ public class FuncionarioController {
         }
     }
 
-    @PostMapping("/{matricula}")
-    public ResponseEntity<?> novoFuncionario(Funcionario funcionario)  {
+    @PostMapping("/{id}")
+    public ResponseEntity<?> novoUsuario(Usuario usuario)  {
 
         try {
-            funcionarioService.novoFuncionario(funcionario);
+            usuarioService.novoUsuario(usuario);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 
         }
     }
-
 }
