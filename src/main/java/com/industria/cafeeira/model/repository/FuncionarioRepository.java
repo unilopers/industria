@@ -1,4 +1,13 @@
 package com.industria.cafeeira.model.repository;
 
-public class FuncionarioRepository {
+import com.industria.cafeeira.model.entities.Cliente;
+import com.industria.cafeeira.model.entities.Funcionario;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
+
+
 }
