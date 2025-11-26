@@ -14,4 +14,5 @@ public class PedidoDto {
     private String codigoPedido;
     @NotNull(message = "O cliente é obrigatório")
     private Long idCliente;
+
 }
