@@ -24,4 +24,6 @@ public class ClienteDto {
 
     @NotNull(message = "O tipo de Operação é obrigatória")
     private String tipoOperacao;
+
+
 }
