@@ -1,6 +1,6 @@
 package com.industria.cafeeira.model.service;
 
-import com.industria.cafeeira.model.DTO.PedidoDto;
+import com.industria.cafeeira.model.dto.PedidoDto;
 import com.industria.cafeeira.model.entities.Cliente;
 import com.industria.cafeeira.model.entities.Pedido;
 import com.industria.cafeeira.model.repository.ClienteRepository;

@@ -1,9 +1,8 @@
-package com.industria.cafeeira.model.DTO;
+package com.industria.cafeeira.model.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
