@@ -29,7 +29,7 @@ public class Pedido {
     @JoinColumn(name = "idCliente", nullable = false)
     private Cliente cliente;
 
-//    @ManyToOne
-//    @JoinColumn(name = "idUsuario", nullable = false)
-//    private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "fkUsuario", nullable = false)
+    private Usuario usuario;
 }

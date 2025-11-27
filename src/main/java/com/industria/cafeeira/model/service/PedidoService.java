@@ -3,8 +3,10 @@ package com.industria.cafeeira.model.service;
 import com.industria.cafeeira.model.dto.PedidoDto;
 import com.industria.cafeeira.model.entities.Cliente;
 import com.industria.cafeeira.model.entities.Pedido;
+import com.industria.cafeeira.model.entities.Usuario;
 import com.industria.cafeeira.model.repository.ClienteRepository;
 import com.industria.cafeeira.model.repository.PedidoRepository;
+import com.industria.cafeeira.model.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
     @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     public Pedido cadastrarPedido(PedidoDto pedidoDto) {
 
@@ -27,6 +31,10 @@ public class PedidoService {
 
         Cliente cliente = clienteRepository.findById(pedidoDto.getIdCliente())
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+        Usuario usuario = usuarioRepository.findById(pedidoDto.getFkUsuario())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+
 
         Pedido pedido = new Pedido();
         pedido.setCodigoPedido(pedidoDto.getCodigoPedido());
@@ -56,6 +64,13 @@ public class PedidoService {
                 );
     }
 
+    public Pedido buscarPedidoPorUsuario(Long idUsuario) {
+        return pedidoRepository.findByUsuarioId(idUsuario)
+                .orElseThrow(() ->
+                        new RuntimeException("Nenhum pedido encontrado para o usuário com ID " + idUsuario)
+                );
+    }
+
     public List<Pedido> buscarClientePorCodigo(Long idCliente){
         return pedidoRepository.findByClienteId(idCliente);
     }
@@ -81,6 +96,27 @@ public class PedidoService {
             return pedidoRepository.save(pedido);
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException("Erro ao atualizar código do pedido");
+        }
+    }
+
+    public Pedido atualizarUsuarioDoPedido(Long id, PedidoDto pedidoDto) {
+
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+
+        Usuario usuario = usuarioRepository.findById(pedidoDto.getFkUsuario())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        if (pedido.getUsuario().getId().equals(usuario.getId())) {
+            throw new RuntimeException("Esse pedido já está vinculado a esse usuário");
+        }
+
+        pedido.setUsuario(usuario);
+
+        try {
+            return pedidoRepository.save(pedido);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Erro ao atualizar o cliente do pedido");
         }
     }
 

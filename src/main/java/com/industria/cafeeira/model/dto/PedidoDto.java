@@ -13,4 +13,6 @@ public class PedidoDto {
     private String codigoPedido;
     @NotNull(message = "O cliente é obrigatório")
     private Long idCliente;
+    @NotNull(message = "O usuário é obrigatório")
+    private Long fkUsuario;
 }

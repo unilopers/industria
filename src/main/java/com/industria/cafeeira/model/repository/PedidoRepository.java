@@ -14,6 +14,6 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     boolean existsByCodigoPedido(String codigoPedido);
 
     List<Pedido> findByClienteId(Long idCliente);
-//    List<Pedido> findByUsuarioId(Long idUsuario);
+    Optional<Pedido> findByUsuarioId(Long idUsuario);
 
 }

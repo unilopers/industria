@@ -45,7 +45,8 @@ public class PedidoController {
         return pedidos.stream()
                 .map(pedido -> new PedidoDto(
                         pedido.getCodigoPedido(),
-                        pedido.getCliente().getId()
+                        pedido.getCliente().getId(),
+                        pedido.getUsuario().getId()
                 ))
                 .toList();
     }
@@ -81,6 +82,12 @@ public class PedidoController {
         }
     }
 
+    @GetMapping("/buscar/usuario/{idUsuario}")
+    public ResponseEntity<Pedido> buscarPedidoPorUsuario(@PathVariable Long idUsuario) {
+        Pedido pedido = pedidoService.buscarPedidoPorUsuario(idUsuario);
+        return ResponseEntity.ok(pedido);
+    }
+
     @PutMapping("/atualizar-codigo/{id}")
     public ResponseEntity<?> atualizarCodigoPedido(
             @PathVariable Long id,
@@ -101,6 +108,19 @@ public class PedidoController {
     ) {
         try {
             Pedido pedidoAtualizado = pedidoService.atualizarClienteDoPedido(id, dto);
+            return ResponseEntity.ok(pedidoAtualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/atualizar-usuario/{id}")
+    public ResponseEntity<?> atualizarUsuarioDoPedido(
+            @PathVariable Long id,
+            @RequestBody PedidoDto dto
+    ) {
+        try {
+            Pedido pedidoAtualizado = pedidoService.atualizarUsuarioDoPedido(id, dto);
             return ResponseEntity.ok(pedidoAtualizado);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
