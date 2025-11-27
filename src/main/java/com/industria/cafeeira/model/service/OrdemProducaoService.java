@@ -39,15 +39,21 @@ public class OrdemProducaoService {
 
         Optional<OrdemProducao> optionalEntity = ordemProducaoRepository.findById(ordem.getId());
         optionalEntity.ifPresent(entity -> entityManager.refresh(entity));
-        return optionalEntity.orElseThrow(() -> new Exception("turma com id " + ordem.getId() + " não encontrada"));
+        return optionalEntity.orElseThrow(() -> new Exception("ordem com id " + ordem.getId() + " não encontrada"));
     }
 
+    @Transactional
     public OrdemProducao update(Long id, OrdemProducao ordem) throws Exception {
 
         OrdemProducao existing = ordemProducaoRepository.findById(id).orElseThrow(() -> new Exception("OrdemProducao com id " + id + " não encontrado"));
         BeanUtils.copyProperties(ordem, existing, BeanUtilsHelper.getNullPropertyNames(ordem));
 
-        return ordemProducaoRepository.save(existing);
+        ordemProducaoRepository.saveAndFlush(existing);
+
+        Optional<OrdemProducao> optionalEntity = ordemProducaoRepository.findById(existing.getId());
+        optionalEntity.ifPresent(entity -> entityManager.refresh(entity));
+        return optionalEntity.orElseThrow(() -> new Exception("ordem com id " + ordem.getId() + " não encontrada"));
+
 
     }
 
