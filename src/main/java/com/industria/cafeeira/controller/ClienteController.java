@@ -1,19 +1,14 @@
 package com.industria.cafeeira.controller;
 
-import com.industria.cafeeira.model.DTO.ClienteDto;
-import com.industria.cafeeira.model.DTO.PedidoDto;
-import com.industria.cafeeira.model.entities.Pedido;
+import com.industria.cafeeira.model.dto.ClienteDto;
 import com.industria.cafeeira.util.DefaultResponse;
 import com.industria.cafeeira.model.entities.Cliente;
 import com.industria.cafeeira.model.service.ClienteService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.ref.Cleaner;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 

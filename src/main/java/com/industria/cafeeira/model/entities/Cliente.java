@@ -40,5 +40,4 @@ public class Cliente {
     @NotNull(message = "O tipo de Operação é obrigatória")
     @Column(name = "tipoOperacao", nullable = false)
     private String tipoOperacao;
-
 }

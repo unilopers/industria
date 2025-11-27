@@ -26,6 +26,10 @@ public class OrdemProducao {
     @JoinColumn(name="pedido_id")
     private Pedido pedido;
 
+    @ManyToOne
+    @JoinColumn(name="boletim_torrefacao_id")
+    private BoletimTorrefacao boletimTorrefacao;
+
     public Long getId() {
         return id;
     }
@@ -64,5 +68,13 @@ public class OrdemProducao {
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    public BoletimTorrefacao getBoletimTorrefacao() {
+        return boletimTorrefacao;
+    }
+
+    public void setBoletimTorrefacao(BoletimTorrefacao boletimTorrefacao) {
+        this.boletimTorrefacao = boletimTorrefacao;
     }
 }

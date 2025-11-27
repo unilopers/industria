@@ -1,18 +1,15 @@
 package com.industria.cafeeira.controller;
 
-import com.industria.cafeeira.model.DTO.PedidoDto;
-import com.industria.cafeeira.model.entities.Cliente;
+import com.industria.cafeeira.model.dto.PedidoDto;
 import com.industria.cafeeira.model.entities.Pedido;
 import com.industria.cafeeira.model.service.PedidoService;
 import com.industria.cafeeira.util.DefaultResponse;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/pedido")
